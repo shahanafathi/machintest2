@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.files.storage import FileSystemStorage
 from .models import CustomeUser
 from django.urls import reverse
-from .models import Employee
+
 from django.http import JsonResponse
 from .models import CustomeUser
 from django.core.files.storage import FileSystemStorage
