@@ -52,6 +52,51 @@ def add_employee(request):
         employees = CustomeUser.objects.all()
         return render(request, "index.html") 
     
+    
 def profile(request):
     data=CustomeUser.objects.all()
     return render(request,"index.html",{'data':data})
+
+def editprofile(request,id):
+    data=CustomeUser.objects.get(id=id)
+    # data=CustomeUser.objects.all()
+    # return render(request,"index.html",{'data':data})
+    data=CustomeUser.objects.get(id=request.user.id)
+    if request.method=='POST':
+        data.first_name = request.POST.get("first_name")
+        data. last_name = request.POST.get("last_name")
+        data. Department = request.POST.get("department")
+        data. Designation = request.POST.get("designation")
+        data.doj = request.POST.get("date_of_joining")
+        data. salary = request.POST.get("salary")
+       
+        if 'image' in request.FILES:
+            data.Image = request.FILES['image']
+        data.save()
+        return redirect(profile)
+    else:
+            return render(request,'editprofile.html',{'datas':data})
+
+def delete_profile(request,id):   
+    data = CustomeUser.objects.get(id=id)
+    data.delete()
+    return redirect("index")
+   
+
+
+# def create(request):
+#     if request.method == "POST":
+#         username = request.POST.get("username")
+#         email = request.POST.get("email")
+#         password = request.POST.get("password")
+#         data1 = CustomeUser.objects.create(
+#             username=username,
+#             email=email,
+#             password=password,
+#         )
+#         data1.save()
+
+#         return redirect(add_employee)
+#     else:  
+#         data1 = CustomeUser.objects.all()
+#         return render(request, "index1.html",{'data1':data1}) 

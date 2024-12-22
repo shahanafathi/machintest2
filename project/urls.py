@@ -24,7 +24,9 @@ urlpatterns = [
     path('',views.index,name='index'),
     path("add-employee", views.add_employee, name="add_employee"),
     path('profile',views.profile,name='profile'),
-    
+    # path('create',views.create,name='create'),
+    path('editprofile/<int:id>',views.editprofile,name='editprofile'),
+    path('delete_profile/<int:id>',views.delete_profile,name='delete_profile'),
 ]
 
 
