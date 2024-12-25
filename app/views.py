@@ -21,6 +21,7 @@ def add_employee(request):
     if request.method == "POST":
         first_name = request.POST.get("first_name")
         last_name = request.POST.get("last_name")
+        email = request.POST.get("email")
         department = request.POST.get("department")
         designation = request.POST.get("designation")
         date_of_joining = request.POST.get("date_of_joining")
@@ -39,6 +40,7 @@ def add_employee(request):
             first_name=first_name,
             username=first_name,
             last_name=last_name,
+            email=email,
             Department=department,
             Designation=designation,
             doj=date_of_joining,
@@ -61,7 +63,7 @@ def editprofile(request,id):
     data=CustomeUser.objects.get(id=id)
     # data=CustomeUser.objects.all()
     # return render(request,"index.html",{'data':data})
-    data=CustomeUser.objects.get(id=request.user.id)
+    data1=CustomeUser.objects.get(id=request.user.id)
     if request.method=='POST':
         data.first_name = request.POST.get("first_name")
         data. last_name = request.POST.get("last_name")
@@ -75,15 +77,21 @@ def editprofile(request,id):
         data.save()
         return redirect(profile)
     else:
-            return render(request,'editprofile.html',{'datas':data})
+            return render(request,'editprofile.html',{'datas':data,'data1':data1})
 
 def delete_profile(request,id):   
     data = CustomeUser.objects.get(id=id)
     data.delete()
     return redirect("index")
    
-
-
+# def search(request):
+#     if request.method=='POST':
+#         Search=request.POST['search']
+#         user = CustomeUser.objects.filter(usertype='user',first_name__icontains=Search)
+#         return render(request,'bank/index.html',{'users': user})
+#     else:
+#         return redirect(index)
+    
 # def create(request):
 #     if request.method == "POST":
 #         username = request.POST.get("username")
@@ -100,3 +108,13 @@ def delete_profile(request,id):
 #     else:  
 #         data1 = CustomeUser.objects.all()
 #         return render(request, "index1.html",{'data1':data1}) 
+
+
+from random import randint
+
+def get_user_data():
+    users = CustomeUser.objects.all()
+    for user in users:
+        if not user.Image:
+            user.bg_color = f"hsl({randint(0, 360)}, 70%, 80%)"
+    return users

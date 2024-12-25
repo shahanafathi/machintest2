@@ -27,6 +27,8 @@ urlpatterns = [
     # path('create',views.create,name='create'),
     path('editprofile/<int:id>',views.editprofile,name='editprofile'),
     path('delete_profile/<int:id>',views.delete_profile,name='delete_profile'),
+    # path('search', views.search, name='search'),
+    
 ]
 
 
